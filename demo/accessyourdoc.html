@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Access Your Document</title>
+    <style>
+        #loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <script>
+        // const name = JSON.parse(window.localStorage.getItem("course0101"))
+        function GetData() {
+            document.getElementById("buttonin").style.display = "none";
+            document.getElementById("image").style.display = "none";
+            document.getElementById("loader").style.display = "block";
+            document.getElementById("loader2").style.display = "block";
+            setTimeout(function () {
+                // document.getElementById("loader").style.display = "none";
+                // const userName = (window.location.href).split('?').pop()
+                const decodedUrl = new URL(window.location.href);
+                // let king = new URL(window.location.href);
+                const userName =decodedUrl.searchParams.get('name');
+
+                // alert(userName)
+                const docUrl = window.localStorage.getItem(userName)
+                window.open(docUrl, "_self")
+            }, 10000);
+
+
+
+            // document.getElementById("loader").style.display = "block";
+
+
+
+            // console.log(personalObj)
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <img id="image" width="100%" src="upperBody.png">
+        <button id="buttonin" style="display: block ;text-align: center;margin: auto;  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);border-radius: 8px;  background-color:rgb(248, 250, 121);;
+        color: black;
+        width: 200px;
+        border: 2px solid black; /* Green */" onclick="GetData()">
+            Access Your Document</button>
+        <div id="loader" style="display: none;"></div>
+        <h2 id="loader2" style="display: none;text-align: center;">Certificate Generation Is in Progress!!!</h2>
+
+
+    </div>
+</body>
+
+</html>

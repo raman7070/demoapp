@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        select,
+        option {
+            width: 200px;
+            height: 40px;
+        }
+
+        option {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+    <script>
+        
+        function store() { //stores items in the localStorage
+            var name = document.getElementById('myName').value;
+            var EmailId = document.getElementById('myEmailId').value;
+            // var courseId ="course0101" 
+            // const info = {
+            //     name: name,
+            //     EmailId: EmailId,
+            // }
+            var retrievedObject = localStorage.getItem(`course0101`);
+            var stored = JSON.parse(retrievedObject);
+            var student2 = [{
+                name: name,
+                EmailId: EmailId
+            }];
+            var stored = Object.assign(stored, student2);
+            window.localStorage.setItem(`course0101`, JSON.stringify(stored));
+            window.open('accessyourdoc.html', "_self")
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+
+        <img src="head.png" width="100%">
+    </div>
+
+
+    <div style="display: flex;justify-content: space-evenly;">
+       
+
+      
+<div class="bg-white dark:bg-gray-900">
+    <div class="container px-6 py-8 mx-auto">
+           <div style="color: gray; font-size: 30px">
+            <h1>1. Welcome to the Course</h1>
+            </div>
+        <div class="p-8 mt-8 space-y-8 bg-gray-100 dark:bg-gray-800 rounded-xl">
+            <div class="flex items-center justify-between text-gray-800 dark:text-gray-200">
+                <p class="textlg sm:text-xl">Video  : Introduction to the course </p>
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 sm:h-7 sm:w-7" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+            </div>
+
+            <div class="flex items-center justify-between text-gray-800 dark:text-gray-200">
+                <p class="textlg sm:text-xl">Reading  : Meet the Instructors</p>
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 sm:h-7 sm:w-7" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+            </div>
+
+            <div class="flex items-center justify-between text-gray-800 dark:text-gray-200">
+                <p class="textlg sm:text-xl">Reading  : Welcome to  University</p>
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 sm:h-7 sm:w-7" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+            </div>
+
+            <div class="flex items-center justify-between text-gray-800 dark:text-gray-200">
+                <p class="textlg sm:text-xl">Reading : Complete a survey</p>
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 sm:h-7 sm:w-7" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+            </div>
+
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<form  onSubmit="store()">
+        <div style=" padding: 10px; margin-top: 70px;">
+            <select class=" w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline ">
+                <option>Front-end development</option>
+                <option>Back- end development </option>
+                <option>Python tutorial</option>
+                <option>Java tutorial</option>
+                <svg class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </select>
+            <br>
+            <br>
+            <input type="text" style=" border: 2px solid rgb(0, 0, 0);" id="myName" style="padding: 10px;margin-top: 5px; " placeholder="Name"><br>
+            <input type="text" style="border: 2px solid rgb(0, 0, 0);; margin-top: 10px;" id="myEmailId" style="padding: 10px;margin-top: 5px;" placeholder="email id">
+            <br>
+            <br>
+            <button type="submit" style="padding: 10px; margin-top: 5px;background-color: rgb(202, 205, 50);">Course completed</button>
+        </div>
+</form>
+    </div>
+
+    </div>
+
+</body>
+
+</html>

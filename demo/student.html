@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Screen</title>
+    <style>
+        select,
+        option {
+            width: 200px;
+            height: 40px;
+        }
+
+        option {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+    <script>
+        function courseSelected(select) {
+            // alert(select.options[select.selectedIndex].id);
+            window.choosenOption = select.options[select.selectedIndex].id
+        }
+        function GetData() {
+            const selectedCourseByStudent = (window.choosenOption) === undefined ? "frontend" : window.choosenOption
+            const personalObj = JSON.parse(window.localStorage.getItem(selectedCourseByStudent))
+            if (!personalObj) {
+                alert("No certificate template has been associated with this course yet.")
+            }
+            else {
+                const currTemplateId = personalObj.templateid
+                const currUserId = personalObj.userid
+                const currName = document.getElementById('myName').value;
+                const currEmailId = document.getElementById('myEmailId').value;
+                const uri = 'https://api-stage.validateme.online/v1/document/createAndSign';
+                const payloadData = {
+                    method: 'post',
+                    headers: {
+                        "content-type": "application/json; charset=utf-8",
+                        "authorization": "basic cc2e5e70ae8f11ecaa99810bf5744b12cc2e5e71ae8f11ecaa99810bf5744b12"
+                    },
+                    body: JSON.stringify({
+                        "templateId": currTemplateId,
+                        "contentSettings": {
+                            "isQrCode": true,
+                            "footerText": "This document is block-chained, tamper proof and can be instantly verified",
+                            "isVMELogoApplied": true,
+                            "docInfo": {
+                                "text": "stage documents , certificates",
+                                "issueDate": new Date(),
+                                "expiryDate": ""
+                            }
+                        },
+                        "csvData": [
+                            [
+                                {
+                                    "value": "Date"
+                                },
+                                {
+                                    "value": "Seminar name"
+                                },
+                                {
+                                    "value": "Name"
+                                },
+                                {
+                                    "value": "Email Address"
+                                },
+                                {
+                                    "value": "Candidate Name"
+                                },
+                                {
+                                    "value": "Reason"
+                                },
+
+                            ],
+                            [
+                                {
+                                    "value": new Date()
+                                },
+                                {
+                                    "value": selectedCourseByStudent
+                                },
+                                {
+                                    "value": currName
+                                },
+                                {
+                                    "value": currEmailId
+                                },
+                                {
+                                    "value": currName
+                                },
+                                {
+                                    "value": selectedCourseByStudent
+                                },
+                            ]
+                        ],
+
+
+                    "issuer": {
+                        "name": "lemonhat",
+                        "website": "lemonhat.com"
+
+                    }
+                    }),
+
+
+                }
+                fetch(uri, payloadData)
+                    .then(response => {
+                        if (response.status !== 200) {
+                            console.log('Looks like there was a problem. Status Code: ' +
+                                response.status);
+                            return;
+                        }
+
+                        console.log(response.headers.get("authorization"));
+                        return response.json();
+                    }
+                    )
+                    .then(myJson => {
+
+                        localStorage.setItem(currName, myJson.data.signedDocs[0].docUrl);
+                        window.open(`accessyourdoc.html?name=${currName}`, "_self")
+                    })
+                    .catch(err => {
+                        console.log('Fetch Error :-S', err);
+                    });
+            }
+
+
+
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <div>
+
+        <img src="head.png" width="100%">
+    </div>
+
+
+    <div style="display: flex;justify-content: space-evenly;">
+
+
+        <div class="bg-white dark:bg-gray-900">
+            <div class="container px-6 py-8 mx-auto">
+                <div style="color: gray; font-size: 30px">
+                    <h1>1. Welcome to the Course</h1>
+                </div>
+                <div class="p-8 mt-8 space-y-8 bg-gray-100 dark:bg-gray-800 rounded-xl">
+                    <div class="flex items-center justify-between text-gray-800 dark:text-gray-200">
+                        <p class="textlg sm:text-xl">Video : Introduction to the course </p>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 sm:h-7 sm:w-7"
+                            viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+
+                    <div class="flex items-center justify-between text-gray-800 dark:text-gray-200">
+                        <p class="textlg sm:text-xl">Reading : Meet the Instructors</p>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 sm:h-7 sm:w-7"
+                            viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+
+                    <div class="flex items-center justify-between text-gray-800 dark:text-gray-200">
+                        <p class="textlg sm:text-xl">Reading : Welcome to University</p>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 sm:h-7 sm:w-7"
+                            viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+
+                    <div class="flex items-center justify-between text-gray-800 dark:text-gray-200">
+                        <p class="textlg sm:text-xl">Reading : Complete a survey</p>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 sm:h-7 sm:w-7"
+                            viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+        <div style=" padding: 10px; margin-top: 70px;">
+            <select id="slectedOption" onchange="courseSelected(this)"
+                class=" w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline ">
+                <option id="frontend">Front-end development</option>
+                <option id="backend">Back- end development </option>
+                <option id="python">Python tutorial</option>
+                <option id="javascript"> JavaScript tutorial</option>
+                <svg class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </select>
+            <br>
+            <br>
+            <form>
+                <input type="text" style=" border: 2px solid rgb(0, 0, 0);" id="myName"
+                    style="padding: 10px;margin-top: 5px; " placeholder="Name" required><br>
+                <input type="text" style="border: 2px solid rgb(0, 0, 0);; margin-top: 10px;" id="myEmailId"
+                    style="padding: 10px;margin-top: 5px;" placeholder="email id" required>
+            </form>
+            <br>
+            <br>
+            <button style="padding: 10px;margin-top: 5px;background-color: rgb(202, 205, 50);"
+                onClick="GetData()">Course
+                completed</button>
+        </div>
+
+    </div>
+
+    </div>
+
+</body>
+
+</html>

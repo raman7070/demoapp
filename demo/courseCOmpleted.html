@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        select,
+        option {
+            width: 200px;
+            height: 40px;
+        }
+
+        option {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+    <script>
+        var currName = document.getElementById('myName').value;
+        var currEmailId = document.getElementById('myEmailId').value;
+        // var retrievedObject = localStorage.getItem(`course0101`);
+        // var stored = JSON.parse(retrievedObject);
+        // var student2 = [{
+        //     name: name,
+        //     EmailId: EmailId
+        // }];
+        // var stored = Object.assign(stored, student2);
+        // window.localStorage.setItem(`course0101`, JSON.stringify(stored));
+
+        // const name = JSON.parse(window.localStorage.getItem("course0101"))
+        const personalObj = JSON.parse(window.localStorage.getItem("course0101"))
+        // const currName = personalObj[0].name
+        // const currEmailId = personalObj[0].EmailId
+        const currTemplateId = personalObj.templateid
+        const currUserId = personalObj.userid
+
+        // function GetData(){console.log(currTemplateId, currUserId)}
+        // console.log(name)
+        const uri = 'https://api-stage.validateme.online/v1/document/createAndSign';
+        const payloadData = {
+            method: 'post',
+            headers: {
+                "content-type": "application/json; charset=utf-8",
+                "authorization": "basic cc2e5e70ae8f11ecaa99810bf5744b12cc2e5e71ae8f11ecaa99810bf5744b12"
+            },
+            body: JSON.stringify({
+                "templateId": currTemplateId,
+                "contentSettings": {
+                    "isQrCode": true,
+                    "footerText": "This document is block-chained, tamper proof and can be instantly verified",
+                    "isVMELogoApplied": true,
+                    "docInfo": {
+                        "text": "stage documents , certificates hfbefuewded hbdjebewbdcd",
+                        "issueDate": "05/21/21",
+                        "expiryDate": "05/31/21"
+                    }
+                },
+                "csvData": [
+                    [
+                        {
+                            "value": "Date"
+                        },
+                        {
+                            "value": "Seminar name"
+                        },
+                        {
+                            "value": "Name"
+                        },
+                        {
+                            "value": "Email Address"
+                        }
+                    ],
+                    [
+                        {
+                            "value": "12/12/2021"
+                        },
+                        {
+                            "value": "front-end development code"
+                        },
+                        {
+                            "value": currName
+                        },
+                        {
+                            "value": currEmailId
+                        }
+                    ]
+                ],
+
+
+                "issuer": {
+                    "name": "lemonhat",
+                    "website": "lemonhat.com"
+
+                }
+            }),
+
+
+
+
+        }
+
+        function GetData() {
+            // window.open("google.com")
+            console.log(localStorage)
+
+            fetch(uri, payloadData)
+                .then(response => {
+                    if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                            response.status);
+                        return;
+                    }
+
+                    console.log(response.headers.get("authorization"));
+                    return response.json();
+                }
+                )
+                .then(myJson => {
+                    console.log("dckhbwcdjbwvjv w", localStorage.getItem("name"))
+                    console.log(myJson.data.signedDocs[0].docUrl)
+                    window.open(myJson.data.signedDocs[0].docUrl, "_self")
+                })
+                .catch(err => {
+                    console.log('Fetch Error :-S', err);
+                });
+        }
+
+
+        function store() { //stores items in the localStorage
+            var name = document.getElementById('myName').value;
+            var EmailId = document.getElementById('myEmailId').value;
+
+            var retrievedObject = localStorage.getItem(`course0101`);
+            var stored = JSON.parse(retrievedObject);
+            var student2 = [{
+                name: name,
+                EmailId: EmailId
+            }];
+            var stored = Object.assign(stored, student2);
+            window.localStorage.setItem(`course0101`, JSON.stringify(stored));
+            window.open('accessyourdoc.html', "_self")
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+
+        <img src="head.png">
+    </div>
+
+
+    <div style="display: flex;justify-content: space-evenly;">
+        <img width="50%" src="lplp.png" style="float: left;">
+        <div style=" padding: 10px; margin-top: 30px;">
+            <select
+                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <option>front-end development</option>
+                <option>Course 2</option>
+                <option>Course 3</option>
+            </select><br>
+            <input id="myName" style="padding: 10px;margin-top: 5px;" placeholder="Name"><br>
+            <input id="myEmailId" style="padding: 10px;margin-top: 5px;" placeholder="email id">
+            <br>
+            <button style="padding: 10px;margin-top: 5px;background-color: rgb(202, 205, 50);" onclick="store()">Course
+                completed</button>
+        </div>
+
+    </div>
+
+    </div>
+
+</body>
+
+</html>
