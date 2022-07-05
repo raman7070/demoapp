@@ -164,17 +164,17 @@
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
         <div class="container">
-          <div id="vmTemplateWidget" data-widgetKey="62872687e0423800127c0125-62872687e0423800127c0128"
-            data-userId="tutor123" data-callback="function(userId, templateId) { 
+          <div id="vmTemplateWidget" data-widgetKey="5f09bb01cab5a300139dd26c-5e8768c37293a6001383e210"
+            data-userId="tutor123" data-callback="function(userId, templateId, placeholder) { 
               var lastVisitedUrl=document.referrer;
               const lastSegment = (lastVisitedUrl.split(`/`).pop()).split(`.`)
               var courseId =lastSegment[0]              
-              const info={ templateid: templateId, userid: userId, }
+              const info={ templateid: templateId, userid: userId, placeholder: placeholder }
               localStorage.setItem(courseId,JSON.stringify(info));
               history.back() }">
           </div>
-          <script src="https://cdn-stage.validateme.online/widgets/templates/stage/library.js"></script>
-          <link rel="stylesheet" href="https://cdn-stage.validateme.online/widgets/templates/stage/library.css" />
+          <script src="https://cdn.validateme.online/widgets/templates/library.js"></script>
+          <link rel="stylesheet" href="https://cdn.validateme.online/widgets/templates/library.css" />
         </div>
       </main>
     </div>
