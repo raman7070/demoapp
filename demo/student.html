@@ -31,6 +31,9 @@
             if (!personalObj) {
                 alert("No certificate template has been associated with this course yet.")
             }
+            else if(!document.getElementById('myName').value || (document.getElementById('myName').value).trim().length === 0) {
+                alert("Name field can't be empty")
+            }
             else {
                 const currTemplateId = personalObj.templateid
                 const currUserId = personalObj.userid
@@ -51,7 +54,7 @@
                             "isVMELogoApplied": true,
                             "docInfo": {
                                 "text": "stage documents , certificates",
-                                "issueDate": new Date(),
+                                "issueDate": new Date().toISOString().slice(0, 10),
                                 "expiryDate": ""
                             }
                         },
@@ -79,7 +82,7 @@
                             ],
                             [
                                 {
-                                    "value": new Date()
+                                    "value": new Date().toISOString().slice(0, 10)
                                 },
                                 {
                                     "value": selectedCourseByStudent
