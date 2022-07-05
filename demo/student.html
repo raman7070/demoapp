@@ -31,12 +31,14 @@
             if (!personalObj) {
                 alert("No certificate template has been associated with this course yet.")
             }
-            else if(!document.getElementById('myName').value || (document.getElementById('myName').value).trim().length === 0) {
+            else if (!document.getElementById('myName').value || (document.getElementById('myName').value).trim().length === 0) {
                 alert("Name field can't be empty")
             }
             else {
                 const currTemplateId = personalObj.templateid
                 const currUserId = personalObj.userid
+                const placeholderArray = personalObj.placeholderArray
+                alert(placeholderArray)
                 const currName = document.getElementById('myName').value;
                 const currEmailId = document.getElementById('myEmailId').value;
                 const uri = 'https://api-stage.validateme.online/v1/document/createAndSign';
@@ -78,6 +80,12 @@
                                 {
                                     "value": "Reason"
                                 },
+                                {
+                                    "value": "reason"
+                                },
+                                {
+                                    "value": "School Name"
+                                },
 
                             ],
                             [
@@ -99,15 +107,20 @@
                                 {
                                     "value": selectedCourseByStudent
                                 },
+                                {
+                                    "value": selectedCourseByStudent
+                                },
+                                {
+                                    "value": "Public School"
+                                },
                             ]
                         ],
+                        "mappedFileNameColumn": currName,
+                        "issuer": {
+                            "name": "lemonhat",
+                            "website": "lemonhat.com"
 
-
-                    "issuer": {
-                        "name": "lemonhat",
-                        "website": "lemonhat.com"
-
-                    }
+                        }
                     }),
 
 
