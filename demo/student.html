@@ -37,16 +37,134 @@
             else {
                 const currTemplateId = personalObj.templateid
                 const currUserId = personalObj.userid
-                const placeholderArray = personalObj.placeholderArray
-//                 alert(placeholderArray)
+                const placeholderArray = personalObj.placeholder
+                // alert(placeholderArray)
                 const currName = document.getElementById('myName').value;
                 const currEmailId = document.getElementById('myEmailId').value;
-                const uri = 'https://api-stage.validateme.online/v1/document/createAndSign';
+                const dataToBeAdded = placeholderArray.includes('Signature') ?
+                    [
+                        [
+                            {
+                                "value": "Date"
+                            },
+                            {
+                                "value": "Seminar name"
+                            },
+                            {
+                                "value": "Name"
+                            },
+                            {
+                                "value": "Email Address"
+                            },
+                            {
+                                "value": "Candidate Name"
+                            },
+                            {
+                                "value": "Reason"
+                            },
+                            {
+                                "value": "reason"
+                            },
+                            {
+                                "value": "School Name"
+                            },
+                            {
+                                "value": "Signature"
+                            }
+
+                        ],
+                        [
+                            {
+                                "value": new Date().toISOString().slice(0, 10)
+                            },
+                            {
+                                "value": selectedCourseByStudent
+                            },
+                            {
+                                "value": currName
+                            },
+                            {
+                                "value": currEmailId
+                            },
+                            {
+                                "value": currName
+                            },
+                            {
+                                "value": selectedCourseByStudent
+                            },
+                            {
+                                "value": selectedCourseByStudent
+                            },
+                            {
+                                "value": "Public School"
+                            },
+                            {
+                                "value": "Dr. Himanshu"
+                            }
+                        ]
+                    ]
+                    :
+                    [
+                        [
+                            {
+                                "value": "Date"
+                            },
+                            {
+                                "value": "Seminar name"
+                            },
+                            {
+                                "value": "Name"
+                            },
+                            {
+                                "value": "Email Address"
+                            },
+                            {
+                                "value": "Candidate Name"
+                            },
+                            {
+                                "value": "Reason"
+                            },
+                            {
+                                "value": "reason"
+                            },
+                            {
+                                "value": "School Name"
+                            },
+
+                        ],
+                        [
+                            {
+                                "value": new Date().toISOString().slice(0, 10)
+                            },
+                            {
+                                "value": selectedCourseByStudent
+                            },
+                            {
+                                "value": currName
+                            },
+                            {
+                                "value": currEmailId
+                            },
+                            {
+                                "value": currName
+                            },
+                            {
+                                "value": selectedCourseByStudent
+                            },
+                            {
+                                "value": selectedCourseByStudent
+                            },
+                            {
+                                "value": "Public School"
+                            },
+                        ]
+                    ]
+                const uri = 'https://api.validateme.online/v1/document/createAndSign';
                 const payloadData = {
                     method: 'post',
                     headers: {
                         "content-type": "application/json; charset=utf-8",
-                        "authorization": "basic cc2e5e70ae8f11ecaa99810bf5744b12cc2e5e71ae8f11ecaa99810bf5744b12"
+                        "authorization": "basic b9f2148175166eaebf2097b77e91689aff836ea799d6ee00760239064d8e7b55"
                     },
                     body: JSON.stringify({
                         "templateId": currTemplateId,
@@ -60,61 +178,7 @@
                                 "expiryDate": ""
                             }
                         },
-                        "csvData": [
-                            [
-                                {
-                                    "value": "Date"
-                                },
-                                {
-                                    "value": "Seminar name"
-                                },
-                                {
-                                    "value": "Name"
-                                },
-                                {
-                                    "value": "Email Address"
-                                },
-                                {
-                                    "value": "Candidate Name"
-                                },
-                                {
-                                    "value": "Reason"
-                                },
-                                {
-                                    "value": "reason"
-                                },
-                                {
-                                    "value": "School Name"
-                                },
-
-                            ],
-                            [
-                                {
-                                    "value": new Date().toISOString().slice(0, 10)
-                                },
-                                {
-                                    "value": selectedCourseByStudent
-                                },
-                                {
-                                    "value": currName
-                                },
-                                {
-                                    "value": currEmailId
-                                },
-                                {
-                                    "value": currName
-                                },
-                                {
-                                    "value": selectedCourseByStudent
-                                },
-                                {
-                                    "value": selectedCourseByStudent
-                                },
-                                {
-                                    "value": "Public School"
-                                },
-                            ]
-                        ],
+                        "csvData": dataToBeAdded,
                         "mappedFileNameColumn": currName,
                         "issuer": {
                             "name": "lemonhat",
